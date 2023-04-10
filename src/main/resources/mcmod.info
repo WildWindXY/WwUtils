@@ -1,0 +1,16 @@
+[
+{
+  "modid": "wwutils",
+  "name": "WwUtils",
+  "description": "Optimizes game experience",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Wild_Wind"],
+  "credits": "猫绒绒",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
