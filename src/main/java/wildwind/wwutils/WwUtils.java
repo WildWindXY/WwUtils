@@ -21,7 +21,6 @@ public class WwUtils {
     @EventHandler
     public void init(FMLInitializationEvent event) {
         new SimpleMouseTweaks();
-//        new ScrollableTooltips();
     }
 
     @EventHandler

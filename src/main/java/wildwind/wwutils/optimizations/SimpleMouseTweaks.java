@@ -3,14 +3,17 @@ package wildwind.wwutils.optimizations;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Slot;
-import net.minecraft.util.ChatComponentTranslation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
+import java.util.HashMap;
+
 public class SimpleMouseTweaks {
+    private final HashMap<Integer, Long> moved = new HashMap<>();
+
     public SimpleMouseTweaks() {
         MinecraftForge.EVENT_BUS.register(this);
     }
@@ -30,8 +33,13 @@ public class SimpleMouseTweaks {
             if (currentSlot == null) {
                 return;
             }
+            final int slotId = currentSlot.slotNumber;
+            if (moved.containsKey(slotId) && moved.get(slotId) + 400 > System.currentTimeMillis()) {
+                return;
+            }
             minecraft.playerController.windowClick(guiContainer.inventorySlots.windowId,
-                    currentSlot.slotNumber, 0, 1, minecraft.thePlayer);
+                    slotId, 0, 1, minecraft.thePlayer);
+            moved.put(slotId, System.currentTimeMillis());
         }
     }
 }

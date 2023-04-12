@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "minVersion": "0.7",
+  "package": "wildwind.wwutils.mixins",
+  "refmap": "mixins.wwutils.refmap.json",
+  "compatibilityLevel": "JAVA_8",
+  "client": [
+    "MixinGuiScreen"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
