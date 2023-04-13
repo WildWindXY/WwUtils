@@ -175,6 +175,9 @@ public class MixinGuiScreen {
                 scrollY = 0;
                 lastSlotId = slotId;
                 lastItemName = itemName;
+                if (tooltipY < 6) {
+                    scrollY = 6 - tooltipY;
+                }
             }
             tooltipY += scrollY;
 
