@@ -5,6 +5,7 @@
 1. Fixed bug in simple mouse tweaks.
 2. Scrollable Tooltips.
 
-? -v1.2
+2023/04/16 -v1.2
 1. Fixed more bugs in simple mouse tweaks.
 2. Optimized scrollable tooltips (auto align top).
+3. Copyable sign texts.
