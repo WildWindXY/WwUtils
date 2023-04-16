@@ -1,6 +1,7 @@
 package wildwind.wwutils.mixins;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiUtilRenderComponents;
@@ -10,6 +11,7 @@ import net.minecraft.client.renderer.tileentity.TileEntitySignRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntitySign;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
@@ -22,6 +24,7 @@ import wildwind.wwutils.optimizations.SignCopyable;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 @Mixin(TileEntitySignRenderer.class)
 public abstract class MixinTileEntitySignRenderer extends TileEntitySpecialRenderer<TileEntitySign> {
@@ -93,19 +96,18 @@ public abstract class MixinTileEntitySignRenderer extends TileEntitySpecialRende
                     IChatComponent ichatcomponent = te.signText[j];
                     List<IChatComponent> list = GuiUtilRenderComponents.splitText(ichatcomponent, 90, fontrenderer, false, true);
                     String s = list.size() > 0 ? ((IChatComponent) list.get(0)).getFormattedText() : "";
-
+                    s = s.replaceAll("§r","");
                     int stringY = j * 10 - te.signText.length * 5;
-                    if (SignCopyable.selectAll && j == SignCopyable.editLine) {
-                        GuiScreen.drawRect(-fontrenderer.getStringWidth(s) / 2 - 1, stringY - 1, fontrenderer.getStringWidth(s) / 2 + 1, stringY + fontrenderer.FONT_HEIGHT - 1 , 0xFF3399FF);
+                    if (SignCopyable.selectAll && j == SignCopyable.editLine && !s.equals("")) {
+                        GuiScreen.drawRect(-fontrenderer.getStringWidth(s) / 2 - 1, stringY - 1, fontrenderer.getStringWidth(s) / 2 + 1, stringY + fontrenderer.FONT_HEIGHT - 1, 0xFF3399FF);
                         fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, stringY, 0xFFFFFFFF);
-                        char[] chars = new char[s.length()];
-                        Arrays.fill(chars, ' ');
-                        s = String.valueOf(chars);
+                    }else{
+                        fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, stringY, i);
                     }
                     if (j == te.lineBeingEdited) {
-                        s = "> " + s + " <";
+                        fontrenderer.drawString("> ", -fontrenderer.getStringWidth(s) / 2 - fontrenderer.getStringWidth("> "), stringY, i);
+                        fontrenderer.drawString(" <", fontrenderer.getStringWidth(s) / 2, stringY, i);
                     }
-                    fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, stringY, i);
                 }
             }
         }

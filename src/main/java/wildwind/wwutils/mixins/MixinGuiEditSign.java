@@ -47,7 +47,6 @@ public class MixinGuiEditSign extends GuiScreen {
             tileSign.signText[editLine] = new ChatComponentText("");
         }
         if (GuiScreen.isKeyComboCtrlV(keyCode)) {
-            selectAll = false;
             String s = tileSign.signText[editLine].getUnformattedText();
             char[] chars = GuiScreen.getClipboardString().toCharArray();
             if (selectAll) {

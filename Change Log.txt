@@ -9,3 +9,5 @@
 1. Fixed more bugs in simple mouse tweaks.
 2. Optimized scrollable tooltips (auto align top).
 3. Copyable sign texts.
+
+? -v1.3
