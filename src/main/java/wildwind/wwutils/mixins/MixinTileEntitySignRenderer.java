@@ -1,7 +1,6 @@
 package wildwind.wwutils.mixins;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiUtilRenderComponents;
@@ -11,7 +10,6 @@ import net.minecraft.client.renderer.tileentity.TileEntitySignRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntitySign;
-import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
@@ -20,14 +18,15 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import wildwind.wwutils.optimizations.SignCopyable;
+import wildwind.wwutils.optimizations.CopyableSignTexts;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 @Mixin(TileEntitySignRenderer.class)
 public abstract class MixinTileEntitySignRenderer extends TileEntitySpecialRenderer<TileEntitySign> {
+    /**
+     * Copyable sign texts
+     */
     @Shadow
     private static final ResourceLocation SIGN_TEXTURE = new ResourceLocation("textures/entity/sign.png");
     @Shadow
@@ -96,9 +95,11 @@ public abstract class MixinTileEntitySignRenderer extends TileEntitySpecialRende
                     IChatComponent ichatcomponent = te.signText[j];
                     List<IChatComponent> list = GuiUtilRenderComponents.splitText(ichatcomponent, 90, fontrenderer, false, true);
                     String s = list.size() > 0 ? ((IChatComponent) list.get(0)).getFormattedText() : "";
+                    //Edit starts here
+
                     s = s.replaceAll("§r","");
                     int stringY = j * 10 - te.signText.length * 5;
-                    if (SignCopyable.selectAll && j == SignCopyable.editLine && !s.equals("")) {
+                    if (CopyableSignTexts.selectAll && j == CopyableSignTexts.editLine && !s.equals("")) {
                         GuiScreen.drawRect(-fontrenderer.getStringWidth(s) / 2 - 1, stringY - 1, fontrenderer.getStringWidth(s) / 2 + 1, stringY + fontrenderer.FONT_HEIGHT - 1, 0xFF3399FF);
                         fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, stringY, 0xFFFFFFFF);
                     }else{
@@ -108,6 +109,8 @@ public abstract class MixinTileEntitySignRenderer extends TileEntitySpecialRende
                         fontrenderer.drawString("> ", -fontrenderer.getStringWidth(s) / 2 - fontrenderer.getStringWidth("> "), stringY, i);
                         fontrenderer.drawString(" <", fontrenderer.getStringWidth(s) / 2, stringY, i);
                     }
+
+                    //Edit ends here
                 }
             }
         }

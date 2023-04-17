@@ -10,14 +10,17 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import wildwind.wwutils.optimizations.SignCopyable;
+import wildwind.wwutils.optimizations.CopyableSignTexts;
 
 import java.io.IOException;
 
-import static wildwind.wwutils.optimizations.SignCopyable.selectAll;
+import static wildwind.wwutils.optimizations.CopyableSignTexts.selectAll;
 
 @Mixin(GuiEditSign.class)
 public class MixinGuiEditSign extends GuiScreen {
+    /**
+     * Copyable sign texts
+     */
     @Shadow
     private TileEntitySign tileSign;
     @Shadow
@@ -69,7 +72,7 @@ public class MixinGuiEditSign extends GuiScreen {
 
     @Inject(method = "func_73869_a", at = @At("RETURN"), remap = false, cancellable = true)
     protected void updateLine(char typedChar, int keyCode, CallbackInfo ci) throws IOException {
-        SignCopyable.editLine = editLine;
+        CopyableSignTexts.editLine = editLine;
     }
 
     @Inject(method = "func_146281_b", at = @At("HEAD"), remap = false, cancellable = true)
