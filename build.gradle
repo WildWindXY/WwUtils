@@ -156,7 +156,7 @@ jar {
 }
 
 // This adds the refmap.
-// (You do not need to create the refmap, it is creted automatically by the mixin plugin)
+// (You do not need to create the refmap, it is created automatically by the mixin plugin)
 sourceSets {
     main {
         ext.refMap = "mixins.wwutils.refmap.json"

@@ -57,7 +57,7 @@ public class MixinGuiEditSign extends GuiScreen {
                 selectAll = false;
             }
             for (char c : chars) {
-                if (ChatAllowedCharacters.isAllowedCharacter(c) && this.fontRendererObj.getStringWidth(s + typedChar) <= 90) {
+                if (ChatAllowedCharacters.isAllowedCharacter(c) && this.fontRendererObj.getStringWidth(s + c) <= 90) {
                     s = s + c;
                 } else {
                     break;
